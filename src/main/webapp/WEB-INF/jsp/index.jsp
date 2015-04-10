@@ -13,8 +13,8 @@
 </head>
 <body>
 <%@include file="common/topNav.jspf" %>
-<table class="table table-bordered">
-    <caption>边框表格布局</caption>
+<table class="table table-bordered table-hover">
+    <caption>用户管理</caption>
     <thead>
     <tr>
         <th>名称</th>
