@@ -27,10 +27,4 @@ public class User {
     private String password;
 
 
-    private boolean isAdmin;
-
-    private boolean enable;
-
-
-
 }
