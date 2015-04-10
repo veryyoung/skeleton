@@ -20,19 +20,12 @@ public class HomeController extends BaseController {
     private UserService userService;
 
 
-
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("/index");
         modelAndView.addObject("users", userService.findAll());
         return modelAndView;
     }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLogin() {
-        return "/login";
-    }
-
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

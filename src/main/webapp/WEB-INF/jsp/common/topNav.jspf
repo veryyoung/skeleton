@@ -22,7 +22,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="pull-left">
-                                <a class="link-signin" href="/login">登录</a>
+                                <a class="link-signin" href="#">登录</a>
                             </li>
                             <li class="pull-left">
                                 <a class="link-signup" href="/register">注册</a>
