@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>首页</title>
+    <link href="${pageContext.request.contextPath}/assets/css/pages/index.css" rel="stylesheet"/>
     <%@include file="common/head.jspf" %>
 </head>
 <body>

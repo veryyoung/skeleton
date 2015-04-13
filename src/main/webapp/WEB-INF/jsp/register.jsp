@@ -9,17 +9,20 @@
 <html>
 <head>
     <title>注册</title>
+    <link href="${pageContext.request.contextPath}/assets/css/pages/register.css" rel="stylesheet"/>
     <%@include file="common/head.jspf" %>
 </head>
 <body>
 <%@include file="common/topNav.jspf" %>
-<div>
+<div class="center">
+    <div class="margin-top-100"></div>
+
     <form class="form-horizontal" role="form" action="/register" method="POST">
 
         <div class="form-group">
             <label for="txt_loginname" class="col-sm-3 control-label">注册名</label>
 
-            <div class="col-sm-2">
+            <div class="col-sm-9">
                 <input type="text" class="form-control" id="txt_loginname" name="userName"
                        placeholder="用户名"/>
             </div>
@@ -28,7 +31,7 @@
         <div class="form-group">
             <label for="txt_password" class="col-sm-3 control-label">密&nbsp;&nbsp;&nbsp;码</label>
 
-            <div class="col-sm-2">
+            <div class="col-sm-9">
                 <input type="password" class="form-control" id="txt_password" name="password"
                        placeholder="密码"/>
             </div>
@@ -36,7 +39,7 @@
 
 
         <div class="form-group">
-            <div class="col-sm-offset-5 col-sm-10">
+            <div class="col-sm-offset-3 col-sm-10">
                 <button type="submit" class="btn btn-info" id="login-submit">注册
                 </button>
                 &nbsp;
@@ -46,6 +49,7 @@
 
 
     </form>
+    <div class="margin-bottom-100"></div>
 </div>
 <%@include file="common/footer.jspf" %>
 
