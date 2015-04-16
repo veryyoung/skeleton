@@ -20,20 +20,29 @@
     <form class="form-horizontal" role="form" action="/register" method="POST">
 
         <div class="form-group">
-            <label for="txt_loginname" class="col-sm-3 control-label">注册名</label>
+            <label class="col-sm-3 control-label">注册名</label>
 
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="txt_loginname" name="userName"
-                       placeholder="用户名"/>
+                       placeholder="请输入用户名"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="txt_password" class="col-sm-3 control-label">密&nbsp;&nbsp;&nbsp;码</label>
+            <label class="col-sm-3 control-label">密&nbsp;&nbsp;&nbsp;码</label>
 
             <div class="col-sm-9">
                 <input type="password" class="form-control" id="txt_password" name="password"
-                       placeholder="密码"/>
+                       placeholder="请输入密码"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">确认密码</label>
+
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="txt_passwordConfirm" name="password"
+                       placeholder="请输入确认密码"/>
             </div>
         </div>
 
@@ -51,7 +60,13 @@
     </form>
     <div class="margin-bottom-100"></div>
 </div>
+
+
 <%@include file="common/footer.jspf" %>
+
+<script type="text/javascript">
+    seajs.use("pages/register");
+</script>
 
 </body>
 </html>
