@@ -19,6 +19,16 @@
 
     <form class="form-horizontal" role="form" action="/register" method="POST">
 
+        <c:if test="${not empty error}">
+            <div class="form-group">
+                <div class="alert alert-danger"
+                     role="alert">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                        ${error}
+                </div>
+            </div>
+        </c:if>
+
         <div class="form-group">
             <label class="col-sm-3 control-label">注册名</label>
 

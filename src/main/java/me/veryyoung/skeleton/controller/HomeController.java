@@ -2,6 +2,7 @@ package me.veryyoung.skeleton.controller;
 
 import me.veryyoung.skeleton.entity.User;
 import me.veryyoung.skeleton.service.UserService;
+import me.veryyoung.skeleton.utils.WebUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,8 +35,12 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(User user) {
+    public ModelAndView register(User user,String captcha) {
         ModelAndView modelAndView = new ModelAndView("/register");
+        if (!WebUtils.checkCaptcha(request, captcha)) {
+            modelAndView.addObject("error", "验证码错误");
+            return modelAndView;
+        }
 
         logger.info("user:{}", user);
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
