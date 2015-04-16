@@ -11,6 +11,9 @@
             <!--Login Starts-->
             <div class="tb-login pull-right">
                 <ul class="list-unstyled">
+                    <li class="pull-left">
+                        <a class="link-index" href="/">首页</a>
+                    </li>
                     <c:choose>
                         <c:when test="${SessionUtils.user != null}">
                             <li class="pull-left">

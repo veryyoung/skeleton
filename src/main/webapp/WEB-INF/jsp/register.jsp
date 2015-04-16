@@ -17,7 +17,7 @@
 <div class="container">
     <div class="margin-top-100"></div>
 
-    <form class="form-horizontal" role="form" action="/register" method="POST">
+    <form class="form-horizontal" id="form_register" role="form" action="/register" method="POST">
 
         <c:if test="${not empty error}">
             <div class="form-group">

@@ -23,25 +23,20 @@ define(function (require, exports, module) {
     Register.prototype.init = function () {
 
         $("#form_register").bind("submit", function (e) {
-            return checkLoginName(true) && checkPassword(true)
-                && checkCaptcha(true) && checkEmail(true) && checkPasswordConfirm(true);
+            return checkLoginName(true) && checkPassword(true) && checkPasswordConfirm(true)
+                && checkCaptcha(true);
         });
 
         $("img.captcha-img").bind("click", function (e) {
             this.src = this.src.split('?')[0] + "?_t=" + new Date().getTime();
         });
-        $("#click_captcha").bind("click", function (e) {
-            var that = $(".captcha-img")[0];
-            that.src = that.src.split('?')[0] + "?_t=" + new Date().getTime();
-        });
+
 
         $("#txt_loginname").bind("blur", function (e) {
             checkLoginName();
         });
 
-        $("#txt_email").bind("blur", function (e) {
-            checkEmail();
-        });
+
         $("#txt_password").bind("blur", function (e) {
             checkPassword();
         });
@@ -83,35 +78,6 @@ define(function (require, exports, module) {
             return true;
         }
 
-
-        function checkEmail(c) {
-            var jqCtrl = $("#txt_email");
-            if (!$.trim(jqCtrl.val())) {
-                if (c) jqCtrl.focus();
-                return false;
-            }
-            //check email format
-            var ret = clientValid.validate("Email", jqCtrl.val());
-            if (!ret.success) {
-                jqCtrl.focus();
-                tool.tooltip(jqCtrl, ret.comment, null, true);
-                return false;
-            }
-
-            //server validation
-            //utility.postJSON('register/validate', null, {
-            //    'type': 'email',
-            //    'val': $.trim(jqCtrl.val())
-            //}, function (data) {
-            //    if (!data.success) {
-            //        jqCtrl.focus();
-            //        tool.tooltip(jqCtrl, data.comment, null, true);
-            //        return;
-            //    }
-            //});
-
-            return true;
-        }
 
         function checkPassword(c) {
             var jqCtrl = $("#txt_password");

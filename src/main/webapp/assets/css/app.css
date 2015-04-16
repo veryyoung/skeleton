@@ -393,6 +393,10 @@ a, a:hover {
     padding: 0px 24px;
 }
 
+.tb-login a.link-index {
+    background: #b89590;
+}
+
 .tb-login a.link-signin {
     background: #1c76b8;
 }
