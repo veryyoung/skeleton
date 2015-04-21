@@ -15,7 +15,7 @@ import java.util.regex.PatternSyntaxException;
 /**
  * Created by veryyoung on 2015/4/21.
  */
-public class ValidatorWrapper {
+public class ValidatorWrapper implements Validator {
     Log logger = LogFactory.getLog(ValidatorWrapper.class);
 
     private final Validator validator;
