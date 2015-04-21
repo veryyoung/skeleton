@@ -23,7 +23,7 @@ public class UserDao extends BaseDao<User> {
     public boolean checkUserName(String userName) {
         Query query = getCurrentSession().createQuery("select count(*) from User as user where user.userName = :userName");
         query.setString("userName", userName);
-        return (Long ) query.uniqueResult() > 0;
+        return (Long) query.uniqueResult() == 0;
     }
 
 

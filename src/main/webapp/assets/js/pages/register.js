@@ -65,7 +65,6 @@ define(function (require, exports, module) {
 
             //server validation
             $.getJSON("checkUserName", {userName: loginName},  function (data) {
-                alert(data.success);
                 if (!data.success) {
                     jqCtrl.focus();
                     tool.tooltip(jqCtrl, data.comment, null, true);
