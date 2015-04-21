@@ -1,6 +1,8 @@
 package me.veryyoung.skeleton.controller;
 
+import me.veryyoung.skeleton.dao.UserDao;
 import me.veryyoung.skeleton.entity.User;
+import me.veryyoung.skeleton.rest.RestData;
 import me.veryyoung.skeleton.service.UserService;
 import me.veryyoung.skeleton.utils.WebUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -19,6 +22,9 @@ public class HomeController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDao userDao;
 
 
     @RequestMapping("/")
@@ -34,8 +40,9 @@ public class HomeController extends BaseController {
         return "/register";
     }
 
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(User user,String captcha) {
+    public ModelAndView register(User user, String captcha) {
         ModelAndView modelAndView = new ModelAndView("/register");
         if (!WebUtils.checkCaptcha(request, captcha)) {
             modelAndView.addObject("error", "验证码错误");
@@ -47,6 +54,18 @@ public class HomeController extends BaseController {
         userService.create(user);
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/checkUserName", method = RequestMethod.GET)
+    @ResponseBody
+    public RestData checkUserName(String userName) {
+        RestData restData = new RestData();
+        if (userDao.checkUserName(userName)) {
+            restData.setSuccess(1);
+        } else {
+            restData.setComment("该用户名已存在");
+        }
+        return restData;
     }
 
 }

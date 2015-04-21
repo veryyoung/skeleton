@@ -63,17 +63,15 @@ define(function (require, exports, module) {
                 return false;
             }
 
-            ////server validation
-            //utility.postJSON('register/validate', null, {
-            //    'type': 'loginName',
-            //    'val': jqCtrl.val()
-            //}, function (data) {
-            //    if (!data.success) {
-            //        jqCtrl.focus();
-            //        tool.tooltip(jqCtrl, data.comment, null, true);
-            //        return;
-            //    }
-            //});
+            //server validation
+            $.getJSON("checkUserName", {userName: loginName},  function (data) {
+                alert(data.success);
+                if (!data.success) {
+                    jqCtrl.focus();
+                    tool.tooltip(jqCtrl, data.comment, null, true);
+                    return;
+                }
+            });
 
             return true;
         }
