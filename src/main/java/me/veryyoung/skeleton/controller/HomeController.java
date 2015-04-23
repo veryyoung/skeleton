@@ -4,6 +4,7 @@ import me.veryyoung.skeleton.dao.UserDao;
 import me.veryyoung.skeleton.entity.User;
 import me.veryyoung.skeleton.rest.RestData;
 import me.veryyoung.skeleton.service.UserService;
+import me.veryyoung.skeleton.utils.ContextUtils;
 import me.veryyoung.skeleton.utils.WebUtils;
 import me.veryyoung.skeleton.validator.InvalidException;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 
 /**
  * Created by veryyoung on 2015/3/2.
@@ -52,6 +55,7 @@ public class HomeController extends BaseController {
 
         logger.info("user:{}", user);
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+        user.setCreateTime(new Date());
         try {
             getValidatorWrapper().tryValidate(user);
             userService.create(user);
@@ -76,5 +80,32 @@ public class HomeController extends BaseController {
         }
         return restData;
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getLogin() {
+        return "/login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView login(String userName, String password, String captcha) {
+        ModelAndView modelAndView = new ModelAndView("/login");
+        if (!WebUtils.checkCaptcha(request, captcha)) {
+            modelAndView.addObject("error", "验证码错误");
+            return modelAndView;
+        }
+
+        User user = userDao.findByUserName(userName);
+        logger.info("password:{}",DigestUtils.md5Hex(password));
+        logger.info("password:{}",user.getPassword());
+
+        if (null != user && user.getPassword().equals(DigestUtils.md5Hex(password))) {
+            ContextUtils.getSessionUtils(request).setUser(user);
+            return new ModelAndView("/account");
+        } else {
+            modelAndView.addObject("error", "用户名或密码错误");
+            return modelAndView;
+        }
+    }
+
 
 }

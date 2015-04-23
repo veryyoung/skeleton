@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>首页</title>
+    <title>首页-${appName}</title>
     <link href="${pageContext.request.contextPath}/assets/css/pages/index.css" rel="stylesheet"/>
     <%@include file="common/head.jspf" %>
 </head>

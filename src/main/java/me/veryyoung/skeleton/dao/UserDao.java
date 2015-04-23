@@ -24,5 +24,11 @@ public class UserDao extends BaseDao<User> {
         return (Long) query.uniqueResult() == 0;
     }
 
+    public User findByUserName(String userName) {
+        Query query = getCurrentSession().createQuery("from User as user where user.userName = :userName");
+        query.setString("userName", userName);
+        return (User) query.uniqueResult();
+    }
+
 
 }
