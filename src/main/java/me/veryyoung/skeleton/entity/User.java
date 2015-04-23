@@ -1,6 +1,7 @@
 package me.veryyoung.skeleton.entity;
 
 import lombok.Data;
+import me.veryyoung.skeleton.validator.constraints.UserName;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class User {
     private String id;
 
     @Column(length = 20)
+    @UserName
     private String userName;
 
     @Column(length = 32)

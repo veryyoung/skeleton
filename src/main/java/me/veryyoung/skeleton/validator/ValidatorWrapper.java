@@ -1,7 +1,8 @@
 package me.veryyoung.skeleton.validator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
@@ -16,7 +17,8 @@ import java.util.regex.PatternSyntaxException;
  * Created by veryyoung on 2015/4/21.
  */
 public class ValidatorWrapper implements Validator {
-    Log logger = LogFactory.getLog(ValidatorWrapper.class);
+
+    protected Logger logger = LoggerFactory.getLogger(ValidatorWrapper.class);
 
     private final Validator validator;
 
@@ -24,15 +26,15 @@ public class ValidatorWrapper implements Validator {
         this.validator = validator;
     }
 
-    public <T> void tryValidate(T Object, Class<?>... groups) {
+    public <T> void tryValidate(T object, Class<?>... groups) {
         Set<ConstraintViolation<T>> cv = null;
         try {
-            cv = validator.validate(Object, groups);
+            cv = validator.validate(object, groups);
         } catch (IllegalArgumentException | ValidationException ex) {
             throw ex;
         } catch (TypeNotPresentException ex) {
             //do nothing
-            logger.warn("tryValidate " + Object + " got java.lang.TypeNotPresentException , ignored");
+            logger.warn("tryValidate  {}   got java.lang.TypeNotPresentException , ignored", object);
         }
         if (cv != null && cv.size() > 0) {
             throw InvalidException.create(cv);
@@ -75,7 +77,7 @@ public class ValidatorWrapper implements Validator {
                 throw InvalidException.create(regex, value);
             }
         } catch (PatternSyntaxException ex) {
-            logger.error("Regex " + regex + " has syntax error.");
+            logger.error("Regex {} has syntax error.", regex);
         }
     }
 

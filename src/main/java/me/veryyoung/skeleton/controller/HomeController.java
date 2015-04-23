@@ -5,6 +5,7 @@ import me.veryyoung.skeleton.entity.User;
 import me.veryyoung.skeleton.rest.RestData;
 import me.veryyoung.skeleton.service.UserService;
 import me.veryyoung.skeleton.utils.WebUtils;
+import me.veryyoung.skeleton.validator.InvalidException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,15 @@ public class HomeController extends BaseController {
 
         logger.info("user:{}", user);
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-        userService.create(user);
+        try {
+            getValidatorWrapper().tryValidate(user);
+            userService.create(user);
+        } catch (InvalidException ex) {
+            logger.error("Invalid User Object: {}", user.toString(), ex);
+            modelAndView.addObject("error", ex.getMessage());
+            return modelAndView;
+        }
+
 
         return modelAndView;
     }
