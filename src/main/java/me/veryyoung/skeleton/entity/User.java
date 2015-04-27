@@ -31,7 +31,7 @@ public class User {
 
     private Date createTime;
 
-    private boolean isAdmin;
+    private boolean admin;
 
 
 }

@@ -17,7 +17,7 @@
                     <c:choose>
                         <c:when test="${SessionUtils.user != null}">
                             <li class="pull-left">
-                                <a class="link-signin" href="/account/">欢迎${SessionUtils.user.loginName} </a>
+                                <a class="link-signin" href="/account/">欢迎${SessionUtils.user.userName} </a>
                             </li>
                             <li class="pull-left">
                                 <a class="link-signup" href="/logout">退出登录</a>
