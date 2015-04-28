@@ -3,6 +3,7 @@ package me.veryyoung.skeleton.controller;
 import me.veryyoung.skeleton.dao.UserDao;
 import me.veryyoung.skeleton.entity.User;
 import me.veryyoung.skeleton.rest.RestData;
+import me.veryyoung.skeleton.security.LoginRequired;
 import me.veryyoung.skeleton.service.UserService;
 import me.veryyoung.skeleton.utils.ContextUtils;
 import me.veryyoung.skeleton.utils.WebUtils;
@@ -53,7 +54,7 @@ public class HomeController extends BaseController {
             return modelAndView;
         }
 
-        logger.info("user:{}", user);
+        logger.debug("user:{}", user);
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         user.setCreateTime(new Date());
         try {
@@ -95,8 +96,6 @@ public class HomeController extends BaseController {
         }
 
         User user = userDao.findByUserName(userName);
-        logger.info("password:{}",DigestUtils.md5Hex(password));
-        logger.info("password:{}",user.getPassword());
 
         if (null != user && user.getPassword().equals(DigestUtils.md5Hex(password))) {
             ContextUtils.getSessionUtils(request).setUser(user);
@@ -108,6 +107,7 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.GET)
+    @LoginRequired
     public String getAccount() {
         return "/account";
     }
