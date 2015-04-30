@@ -9,6 +9,7 @@ import me.veryyoung.skeleton.utils.ContextUtils;
 import me.veryyoung.skeleton.utils.WebUtils;
 import me.veryyoung.skeleton.validator.InvalidException;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,8 +84,12 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLogin() {
-        return "/login";
+    public ModelAndView getLogin(String redirect) {
+        ModelAndView modelAndView = new ModelAndView("/login");
+        if (StringUtils.isNotEmpty(redirect)) {
+            modelAndView.addObject("error", "您需要先登录!");
+        }
+        return modelAndView;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
