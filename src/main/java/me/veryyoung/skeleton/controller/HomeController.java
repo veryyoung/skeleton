@@ -6,7 +6,6 @@ import me.veryyoung.skeleton.security.LoginRequired;
 import me.veryyoung.skeleton.service.UserService;
 import me.veryyoung.skeleton.utils.ContextUtils;
 import me.veryyoung.skeleton.utils.WebUtils;
-import me.veryyoung.skeleton.validator.InvalidException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
 
 /**
  * Created by veryyoung on 2015/3/2.
@@ -51,17 +48,7 @@ public class HomeController extends BaseController {
             return modelAndView;
         }
 
-        logger.debug("user:{}", user);
-        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-        user.setCreateTime(new Date());
-        try {
-            getValidatorWrapper().tryValidate(user);
-            userService.create(user);
-        } catch (InvalidException ex) {
-            logger.error("Invalid User Object: {}", user.toString(), ex);
-            modelAndView.addObject("error", ex.getMessage());
-            return modelAndView;
-        }
+        userService.create(user);
 
 
         return new ModelAndView("redirect:/");
