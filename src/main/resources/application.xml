@@ -79,10 +79,5 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcutService" />
     </aop:config>
 
-    <aop:config>
-        <aop:pointcut expression="execution(* me.veryyoung.skeleton.dao.*.*(..))" id="txPointcutDao"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcutDao" />
-    </aop:config>
-
 
 </beans>

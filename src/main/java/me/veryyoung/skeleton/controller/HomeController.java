@@ -1,6 +1,5 @@
 package me.veryyoung.skeleton.controller;
 
-import me.veryyoung.skeleton.dao.UserDao;
 import me.veryyoung.skeleton.entity.User;
 import me.veryyoung.skeleton.rest.RestData;
 import me.veryyoung.skeleton.security.LoginRequired;
@@ -28,9 +27,6 @@ public class HomeController extends BaseController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserDao userDao;
 
 
     @RequestMapping("/")
@@ -75,7 +71,7 @@ public class HomeController extends BaseController {
     @ResponseBody
     public RestData checkUserName(String userName) {
         RestData restData = new RestData();
-        if (userDao.checkUserName(userName)) {
+        if (userService.checkUserName(userName)) {
             restData.setSuccess(1);
         } else {
             restData.setComment("该用户名已存在");
@@ -100,7 +96,7 @@ public class HomeController extends BaseController {
             return modelAndView;
         }
 
-        User user = userDao.findByUserName(userName);
+        User user = userService.findByUserName(userName);
 
         if (null != user && user.getPassword().equals(DigestUtils.md5Hex(password))) {
             ContextUtils.getSessionUtils(request).setUser(user);

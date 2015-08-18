@@ -12,4 +12,8 @@ public interface UserService {
     public void create(User user);
 
     public List<User> findAll();
+
+    public boolean checkUserName(String userName);
+
+    public User findByUserName(String userName);
 }
