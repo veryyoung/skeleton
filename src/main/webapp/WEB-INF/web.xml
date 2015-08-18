@@ -55,8 +55,8 @@
 
 
     <servlet>
-        <servlet-name>SimpleCaptchaServlet</servlet-name>
-        <servlet-class>nl.captcha.servlet.SimpleCaptchaServlet</servlet-class>
+        <servlet-name>jcaptcha</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
         <init-param>
             <param-name>captcha-width</param-name>
             <param-value>150</param-value>
@@ -65,9 +65,13 @@
             <param-name>captcha-height</param-name>
             <param-value>50</param-value>
         </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.char.length</param-name>
+            <param-value>6</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SimpleCaptchaServlet</servlet-name>
+        <servlet-name>jcaptcha</servlet-name>
         <url-pattern>/captcha.png</url-pattern>
     </servlet-mapping>
 

@@ -119,7 +119,7 @@ define(function (require, exports, module) {
             }
 
             //check captcha format
-            if (captcha.length != 5) {
+            if (captcha.length != 6) {
                 jqCtrl.focus();
                 tool.tooltip(jqCtrl, "验证码格式不正确", null, true);
                 return false;

@@ -1,6 +1,5 @@
 package me.veryyoung.skeleton.utils;
 
-import nl.captcha.Captcha;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +27,9 @@ public class WebUtils {
      * @return true代表一致
      */
     public static boolean checkCaptcha(HttpServletRequest request, String captcha) {
-        Captcha c = (Captcha) request.getSession().getAttribute(Captcha.NAME);
-        if (c != null && c.getAnswer().toUpperCase().equals(captcha.toUpperCase())) {
-            request.getSession().removeAttribute(Captcha.NAME);
+        String captchaExpected=(String)request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        if (captchaExpected.toUpperCase().equals(captcha.toUpperCase())) {
+            request.getSession().removeAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
             return true;
         }
         return false;
