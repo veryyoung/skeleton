@@ -68,7 +68,7 @@ public class HomeController extends BaseController {
         }
 
 
-        return new ModelAndView("redirect:/index");
+        return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/checkUserName", method = RequestMethod.GET)
