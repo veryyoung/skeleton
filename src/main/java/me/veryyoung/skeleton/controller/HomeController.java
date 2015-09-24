@@ -48,7 +48,7 @@ public class HomeController extends BaseController {
             return modelAndView;
         }
 
-        userService.create(user);
+        userService.addUser(user);
 
 
         return new ModelAndView("redirect:/");

@@ -13,7 +13,7 @@
 4. 验证框架 hibernate-validator
 5. 日志管理slf4j+logback
 6. 数据源 druid
-7. SimpleCaptcha验证码
+7. jcaptcha验证码
 8. jsp+servlet 
 
 ###前端

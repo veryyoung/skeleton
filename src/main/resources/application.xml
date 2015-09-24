@@ -68,15 +68,18 @@
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="purchase" propagation="REQUIRES_NEW"/>
-            <tx:method name="*"/>
+            <tx:method name="add*" propagation="REQUIRED" timeout="600"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" timeout="600"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="edit*" propagation="REQUIRED" timeout="600"
+                       rollback-for="java.lang.Exception"/>
         </tx:attributes>
     </tx:advice>
 
     <aop:config>
         <aop:pointcut expression="execution(* me.veryyoung.skeleton.service.*.*(..))" id="txPointcutService"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcutService" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcutService"/>
     </aop:config>
 
 
