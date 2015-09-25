@@ -2,8 +2,9 @@ package me.veryyoung.skeleton.dao;
 
 
 import me.veryyoung.skeleton.entity.User;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -11,24 +12,15 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UserDao extends BaseDao<User> {
+public interface UserDao {
 
-    public UserDao() {
-        super(User.class);
-    }
+    void create(User user);
 
+    int checkUserName(String userName);
 
-    public boolean checkUserName(String userName) {
-        Query query = getCurrentSession().createQuery("select count(*) from User as user where user.userName = :userName");
-        query.setString("userName", userName);
-        return (Long) query.uniqueResult() == 0;
-    }
+    User findByUserName(String userName);
 
-    public User findByUserName(String userName) {
-        Query query = getCurrentSession().createQuery("from User as user where user.userName = :userName");
-        query.setString("userName", userName);
-        return (User) query.uniqueResult();
-    }
+    List<User> findAll();
 
 
 }

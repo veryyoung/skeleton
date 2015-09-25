@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.veryyoung.skeleton.dao.UserDao">
+
+    <resultMap id="userResult" type="User">
+        <result column="id" property="id"/>
+        <result column="userName" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="createTime" property="createTime"/>
+        <result column="admin" property="admin"/>
+    </resultMap>
+
+    <insert id="create">
+        <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+            select replace (uuid(), '-', '')
+        </selectKey>
+        insert into user (id, userName, password, createTime, admin)
+        values (#{id}, #{userName}, #{password}, now(), #{admin})
+    </insert>
+
+
+    <select id="checkUserName" parameterType="java.lang.String" resultType="int">
+        select count(*) from user where userName = #{userName}
+    </select>
+
+    <select id="findByUserName" resultMap="userResult" parameterType="java.lang.String">
+        select * from user where userName = #{userName}
+    </select>
+
+    <select id="findAll" resultMap="userResult">
+        select * from user order by createTime desc;
+    </select>
+
+
+</mapper>
+

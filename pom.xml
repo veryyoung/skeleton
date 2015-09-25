@@ -93,15 +93,12 @@
         </dependency>
 
 
-
         <!-- captcha -->
         <dependency>
             <groupId>com.github.axet</groupId>
             <artifactId>kaptcha</artifactId>
             <version>0.0.9</version>
         </dependency>
-
-
 
 
         <!-- log -->
@@ -135,21 +132,23 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!--  hibernate  -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.2.0.Alpha1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>1.2.3</version>
         </dependency>
 
 

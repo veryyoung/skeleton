@@ -49,7 +49,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         if (StringUtils.isEmpty(userName)) {
             return false;
         }
-        return userDao.checkUserName(userName);
+        return userDao.checkUserName(userName) == 0;
     }
 
     @Override

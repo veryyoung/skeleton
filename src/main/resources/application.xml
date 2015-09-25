@@ -2,9 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-       http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
        default-lazy-init="true">
 
     <context:component-scan base-package="me.veryyoung.skeleton"/>
@@ -38,49 +37,28 @@
         <property name="poolPreparedStatements" value="false"/>
     </bean>
 
-    <!-- 配置SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="connection.autocommit">true</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.current_session_context_class">
-                    org.springframework.orm.hibernate4.SpringSessionContext
-                </prop>
-            </props>
-        </property>
-
-        <property name="packagesToScan">
-            <list>
-                <value>me.veryyoung.skeleton.entity</value>
-            </list>
-        </property>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
+    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+        <property name="basePackage" value="me.veryyoung.skeleton.dao"/>
     </bean>
 
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <qualifier value="default"/>
+    </bean>
 
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="add*" propagation="REQUIRED" timeout="600"
-                       rollback-for="java.lang.Exception"/>
-            <tx:method name="delete*" propagation="REQUIRED" timeout="600"
-                       rollback-for="java.lang.Exception"/>
-            <tx:method name="edit*" propagation="REQUIRED" timeout="600"
-                       rollback-for="java.lang.Exception"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:pointcut expression="execution(* me.veryyoung.skeleton.service.*.*(..))" id="txPointcutService"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcutService"/>
-    </aop:config>
-
+    <bean id="transactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
