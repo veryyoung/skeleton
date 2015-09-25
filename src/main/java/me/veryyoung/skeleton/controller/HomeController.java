@@ -100,5 +100,10 @@ public class HomeController extends BaseController {
         return "/account";
     }
 
+    @RequestMapping("logout")
+    public String logout() {
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
 
 }
