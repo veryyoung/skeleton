@@ -4,7 +4,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,7 +28,6 @@ public abstract class BaseDao<T> {
         this.entityClass = entityClass;
     }
 
-    @Transactional
     public List<T> findAll() throws DataAccessException {
         return getCurrentSession().createCriteria(entityClass).list();
     }

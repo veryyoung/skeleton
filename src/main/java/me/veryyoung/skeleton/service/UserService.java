@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface UserService {
 
-    public boolean addUser(User user);
+    boolean addUser(User user);
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public boolean checkUserName(String userName);
+    boolean checkUserName(String userName);
 
-    public User findByUserName(String userName);
+    User findByUserName(String userName);
 }

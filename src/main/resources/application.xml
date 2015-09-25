@@ -68,12 +68,14 @@
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
             <tx:method name="add*" propagation="REQUIRED" timeout="600"
                        rollback-for="java.lang.Exception"/>
             <tx:method name="delete*" propagation="REQUIRED" timeout="600"
                        rollback-for="java.lang.Exception"/>
             <tx:method name="edit*" propagation="REQUIRED" timeout="600"
                        rollback-for="java.lang.Exception"/>
+            <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
 
