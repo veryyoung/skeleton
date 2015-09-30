@@ -4,9 +4,9 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-       http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-3.2.xsd
-       http://www.springframework.org/schema/mvc        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
+       http://www.springframework.org/schema/beans      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/mvc        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd"
        default-lazy-init="true">
 
 
@@ -29,7 +29,8 @@
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <ref bean="mappingJackson2HttpMessageConverter" /><!-- json转换器 -->
+                <ref bean="mappingJackson2HttpMessageConverter"/>
+                <!-- json转换器 -->
             </list>
         </property>
     </bean>
@@ -40,10 +41,13 @@
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
             </bean>
+
         </mvc:message-converters>
+        <mvc:path-matching registered-suffixes-only="true"/>
     </mvc:annotation-driven>
 
     <context:annotation-config/>
+
 
     <mvc:interceptors>
         <bean class="me.veryyoung.skeleton.web.AuthenticationFilter"></bean>
