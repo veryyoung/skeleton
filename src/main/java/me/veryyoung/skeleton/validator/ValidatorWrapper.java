@@ -34,7 +34,7 @@ public class ValidatorWrapper implements Validator {
             throw ex;
         } catch (TypeNotPresentException ex) {
             //do nothing
-            logger.warn("tryValidate  {}   got java.lang.TypeNotPresentException , ignored", object);
+            logger.warn("tryValidate {} got java.lang.TypeNotPresentException , ignored", object);
         }
         if (cv != null && cv.size() > 0) {
             throw InvalidException.create(cv);
