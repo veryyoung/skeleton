@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by veryyoung on 2015/3/2.
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class HomeController extends BaseController {
 
     @Autowired
